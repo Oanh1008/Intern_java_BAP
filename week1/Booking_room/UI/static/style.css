@@ -1,0 +1,17 @@
+
+img .fixed-size{
+    width: 289px;
+    height: 190.222px;
+}
+.container{
+    border-top: 3px solid #1c87c9;
+    padding: 0px;
+}
+.button{
+    border-left: 500px  ;
+    padding: auto;
+}
+.img-corousel{
+    height: 500px;
+   
+}
