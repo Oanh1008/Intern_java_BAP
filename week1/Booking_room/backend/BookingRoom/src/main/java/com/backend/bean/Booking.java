@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 
 @AllArgsConstructor
@@ -33,17 +32,6 @@ public class Booking {
     @Column(name = "note")
     private String note;
 
-    public LocalDateTime toLocalDateTime(String localDatetime){
-       return LocalDateTime.parse(localDatetime);
-    }
-
-    public void setStartTime(String startTime) {
-        this.startTime = toLocalDateTime(startTime);
-    }
-
-    public void setEndTime(String endTime) {
-        this.endTime = toLocalDateTime(endTime);
-    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "roomID",referencedColumnName = "roomID")
