@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,11 +16,8 @@ public class Room {
     @Id
     private String roomID;
 
-    @Column(name = "min")
-    private int min;
-
-    @Column(name = "max")
-    private int max;
+    @Column(name = "capacity")
+    private int capacity;
 
     @Column(name = "price")
     private double price;
@@ -29,8 +25,8 @@ public class Room {
     @Column(name = "image")
     private String image;
 
-    @Column(name ="isBooked")
-    private Boolean isBooked;
+    @Column(name ="state")
+    private String state;
 
     @Column(name = "description")
     private String description;
