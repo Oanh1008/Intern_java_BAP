@@ -44,7 +44,6 @@ public class RoomController {
         roomService.save(room);
 
         bookingService.save(booking);
-
         return "redirect:/room/showRooms";
     }
 
