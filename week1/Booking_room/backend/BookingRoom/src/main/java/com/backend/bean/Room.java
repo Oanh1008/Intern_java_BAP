@@ -17,10 +17,10 @@ public class Room {
     private String roomID;
 
     @Column(name = "capacity")
-    private int capacity;
+    private Integer capacity;
 
     @Column(name = "price")
-    private double price;
+    private Integer price;
 
     @Column(name = "image")
     private String image;

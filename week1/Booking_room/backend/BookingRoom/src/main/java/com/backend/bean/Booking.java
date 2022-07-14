@@ -10,16 +10,15 @@ import java.time.format.DateTimeFormatter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Setter
 @ToString
 @Entity
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int bookingID;
+    private Integer bookingID;
 
     @Column(name = "customerID")
-    private int customerID;
+    private Integer customerID;
 
     @Column(name = "startTime")
     private LocalDateTime startTime;
@@ -43,6 +42,28 @@ public class Booking {
 
     public void setEndTime(String endTime) {
         this.endTime = toLocalDateTime(endTime);
+    }
+
+
+
+    public void setBookingID(Integer bookingID) {
+        this.bookingID = bookingID;
+    }
+
+    public void setCustomerID(Integer customerID) {
+        this.customerID = customerID;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
