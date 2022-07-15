@@ -24,4 +24,6 @@ public abstract class BaseEntity implements Serializable {
 
     @CreatedDate
     private LocalDateTime createTime;
+
+
 }
