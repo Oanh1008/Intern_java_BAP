@@ -1,10 +1,17 @@
 package com.backend.bookingroom.bean;
 
+
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import java.util.List;
+
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "user")
 
 public class User extends BaseEntity{
 

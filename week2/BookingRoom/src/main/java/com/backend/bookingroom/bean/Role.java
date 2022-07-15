@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
 
+
 @Entity
 @Table(name = "role")
 @NoArgsConstructor
@@ -15,12 +16,8 @@ import java.util.List;
 @Setter
 @Getter
 public class Role {
-    @ManyToMany
-    @JoinTable(
-            name = "user_role",
-            joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
+
+    @ManyToMany(mappedBy = "roles")
     private List<User> users;
 
     @Id
