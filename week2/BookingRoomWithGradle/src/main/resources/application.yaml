@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/bookingroom
+    username: root
+    password: 10082001
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  security:
+    user:
+      name: admin
+      password: 123
+
+
+
+server:
+  port: 8088
+
+logging:
+  level:
+    sql: debug
+
+
+
