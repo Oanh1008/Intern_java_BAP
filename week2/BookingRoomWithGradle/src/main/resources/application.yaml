@@ -7,19 +7,16 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
-  security:
-    user:
-      name: admin
-      password: 123
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
 
-
-
-server:
-  port: 8088
 
 logging:
   level:
     sql: debug
+
+
 
 
 

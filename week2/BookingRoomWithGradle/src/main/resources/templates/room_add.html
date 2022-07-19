@@ -10,24 +10,39 @@
 </head>
 <body>
 <div class="container">
-  <h3 class="h4 mt-4 mb-4">Save Room</h3>
+  <h3 class="h4 mt-4 mb-4">AddRoom</h3>
 
   <hr>
 
-  <form th:action="@{/room/showRooms}"  th:object="${room}" method="POST">
+  <form th:action="@{/room/showRooms/{page} (page= 1)"  th:object="${room}" method="POST">
 
 
     <div class="form-group row mt-4 mb-4">
       <label for="roomCode" class="col-sm-2 col-form-label">Room Code:</label>
       <div class="col-sm-4">
+        <input class="form-control" type="hidden" th:field="*{id}" id="id" path="id" />
         <input class="form-control"  th:field="*{roomCode}" id="roomCode" path="roomCode" />
       </div>
     </div>
 
     <div class="form-group row mt-4 mb-4">
-      <label for="capacity" class="col-sm-2 col-form-label">Capacity :</label>
+      <label for="min" class="col-sm-2 col-form-label">Min :</label>
       <div class="col-sm-4">
-        <input class="form-control"  th:field="*{capacity}" id="capacity" path="capacity"/>
+        <input class="form-control"  th:field="*{min}" id="min" path="min"/>
+      </div>
+    </div>
+
+    <div class="form-group row mt-4 mb-4">
+      <label for="max" class="col-sm-2 col-form-label">Max :</label>
+      <div class="col-sm-4">
+        <input class="form-control"  th:field="*{max}" id="max" path="max"/>
+      </div>
+    </div>
+
+    <div class="form-group row mt-4 mb-4">
+      <label for="type" class="col-sm-2 col-form-label">Room type :</label>
+      <div class="col-sm-4">
+        <input class="form-control"  th:field="*{roomType}" id="type" path="type"/>
       </div>
     </div>
 
