@@ -14,14 +14,14 @@
 
     <hr>
 
-    <form th:action="@{/room/showRooms}"  th:object="${room}" method="POST">
+    <form th:action="@{/room/save}"  th:object="${room}" method="POST">
 
 
         <div class="form-group row mt-4 mb-4">
             <label for="roomCode" class="col-sm-2 col-form-label">Room Code:</label>
             <div class="col-sm-4">
-                <input class="form-control" type="hidden" th:field="*{id}" id="id" path="id" />
-                <input class="form-control"  th:field="*{roomCode}" id="roomCode" path="roomCode" />
+                <input type="hidden" th:field="*{id}"  path="id" />
+                <input class="form-control"  th:field="*{roomCode}" id="roomCode" path="roomCode"  readonly/>
             </div>
         </div>
 

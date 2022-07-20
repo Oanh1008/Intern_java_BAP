@@ -12,9 +12,11 @@ spring:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
 
 
+
 logging:
   level:
     sql: debug
+
 
 
 

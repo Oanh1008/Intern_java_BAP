@@ -8,15 +8,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class AdminController {
-    private  RoomService roomService;
-    @Autowired
-    public AdminController(RoomService roomService) {
-        this.roomService = roomService;
-    }
-    @GetMapping("/adminPage")
-    public String indexPage(Model model) {
-        model.addAttribute("rooms", roomService.getAllRooms());
-        return "index_admin";
-    }
+//    private  RoomService roomService;
+//    @Autowired
+//    public AdminController(RoomService roomService) {
+//        this.roomService = roomService;
+//    }
+//    @GetMapping("/adminPage")
+//    public String indexPage(Model model) {
+//        model.addAttribute("rooms", roomService.getAllRooms());
+//        return "index_admin";
+//    }
 
 }
