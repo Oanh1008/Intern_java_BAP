@@ -13,7 +13,7 @@
 <hr>
 
 <p>
-    <a id="back" th:href="@{/room/showRooms}">Back to Home Page</a>
+    <a id="back" th:href="@{/room/showRooms/1}">Back to Home Page</a>
 </p>
 
 <script>
@@ -22,7 +22,7 @@
         counter--;
         document.querySelector("#runner").textContent = counter;
         if (counter === 0) {
-            window.location.href ="http://localhost:8080/room/showRooms";
+            window.location.href ="http://localhost:8080/room/showRooms/1";
             clearInterval(interval);
         }
     }, 1000);

@@ -1,21 +1,22 @@
 package com.backend.service;
 
 import com.backend.bean.Room;
-import com.backend.bean.RoomType;
+import com.backend.enumeration.RoomType;
 import com.backend.dto.RoomDTO;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface RoomService {
 
     List<RoomDTO> getAllRooms();
 
-    Room save(RoomDTO room);
+    Room save(RoomDTO room) throws Exception;
 
     void deleteById(Integer id);
 
     RoomDTO findByRoomCode(String roomCode);
+    Room findByRoomCodeE(String roomCode);
 
     RoomDTO findById(Integer id);
 
@@ -31,6 +32,6 @@ public interface RoomService {
 
     List<RoomDTO> searchAllByBetweenMinAndMax(Integer quantity);
 
-   List<RoomDTO> findPaginated(int pageNo, int pageSize);
+   Page<RoomDTO> findPaginated(int pageNo, int pageSize);
    long totolRecordsRoom();
 }

@@ -1,6 +1,7 @@
 package com.backend.dto;
 
-import com.backend.bean.RoomType;
+import com.backend.enumeration.RoomState;
+import com.backend.enumeration.RoomType;
 import lombok.*;
 
 @NoArgsConstructor
@@ -15,7 +16,8 @@ public class RoomDTO {
     private Integer max;
     private Double price;
     private RoomType roomType;
-    private String state;
+    private RoomState state;
     private String description;
     private String image;
+
 }

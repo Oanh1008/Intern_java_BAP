@@ -1,6 +1,6 @@
 package com.backend.repository;
 import com.backend.bean.Room;
-import com.backend.bean.RoomType;
+import com.backend.enumeration.RoomType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import java.util.List;
@@ -26,6 +26,5 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
 
     @Query("select r from Room r where r.min <= ?1 and r.max >= ?1")
     List<Room> searchAllByBetweenMinAndMax(Integer quantity);
-
 
 }

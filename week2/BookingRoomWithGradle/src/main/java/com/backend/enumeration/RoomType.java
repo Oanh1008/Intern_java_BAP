@@ -1,4 +1,4 @@
-package com.backend.bean;
+package com.backend.enumeration;
 
 public enum RoomType {
 

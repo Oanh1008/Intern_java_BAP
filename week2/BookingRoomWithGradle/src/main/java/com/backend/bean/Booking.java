@@ -1,5 +1,6 @@
 package com.backend.bean;
 
+import com.backend.enumeration.BookingState;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,8 +35,11 @@ public class Booking extends BaseEntity{
     @Column(name = "end_time")
     private LocalDateTime endTime;
 
+    @Column(name = "state")
+    @Enumerated(EnumType.STRING)
+    private BookingState bookingState;
+
     @Column(name ="note")
     private String note;
-
 
 }

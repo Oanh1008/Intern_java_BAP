@@ -1,5 +1,7 @@
 package com.backend.bean;
 
+import com.backend.enumeration.RoomState;
+import com.backend.enumeration.RoomType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -28,8 +30,10 @@ public class Room extends BaseEntity{
     @Column(name = "room_type")
     @Enumerated(EnumType.STRING)
     private RoomType roomType;
+
     @Column(name = "state")
-    private String state;
+    @Enumerated(EnumType.STRING)
+    private RoomState state;
 
     @Column(name = "description")
     private String description;

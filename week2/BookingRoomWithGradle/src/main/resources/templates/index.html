@@ -25,12 +25,14 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li>
+                        <a  th:href="@{/booking}" type="button" class="nav-link ">Booking</a>
+                    </li>
                     <li class="nav-item ">
                         <!-- Button trigger modal -->
                         <a type="button" class="nav-link " data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                             Search
                         </a>
-
                     </li>
 
                     <li class="nav-item dropdown">
@@ -62,6 +64,11 @@
 
 <!-- Room -->
 <div class="container">
+    <th:block>
+        <p th:if="${totalRecords} gt 0" th:text="'Total Room of this page : '+${totalRecords}" style="color: orangered;font-size: larger"></p>
+        <p th:if="${totalRecords} eq 0" th:text="'Total Room of this page : '+0" style="color: orangered;font-size: larger"></p>
+    </th:block>
+
     <p id="#text123" th:text="${message}" style="text-align: center ;color: orangered"></p>
     <div class="row">
         <div class="col-4" th:each="room:${rooms}">
@@ -76,7 +83,9 @@
                     <a class="btn btn-primary" th:href="@{/room/edit/{id} (id=${room.roomCode})}"
                        role="button">Update</a>
                     <a class="btn btn-primary" th:href="@{/room/delete/{id} (id=${room.id})}" role="button">Delete</a>
-                    <a th:href="@{/room/booking/{id}(id =${room.id})}" class="btn btn-success">Book now</a>
+                    <th:block th:switch="${room.state}">
+                        <a th:case="${available}" th:href="@{/booking/{roomCode}(roomCode =${room.roomCode})}" class="btn btn-success">Book now</a>
+                    </th:block>
                 </div>
             </div>
         </div>
@@ -109,9 +118,14 @@
             <div class="modal-body">
                 <form th:action="@{/room/showRooms/1}" th:method="get">
                     <div class="form-group row mt-4 mb-4">
-                        <label for="type" class="col-sm-2 col-form-label">Room type :</label>
+                        <label  class="col-sm-2 col-form-label">Room type :</label>
                         <div class="col-sm-4">
-                            <input class="form-control" type="text" id="type" name="roomType"/>
+<!--                            <input class="form-control" type="text" id="type" name="roomType"/>-->
+                            <select name="roomType">
+                                <option th:value="${null}">select type room</option>
+                                <option th:value="${BASIC}" th:text="${BASIC}"></option>
+                                <option th:value="${VIP}" th:text="${VIP}" ></option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row mt-4 mb-4">
