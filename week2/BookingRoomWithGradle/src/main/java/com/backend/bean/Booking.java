@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -18,12 +20,12 @@ import java.time.LocalDateTime;
 @Table(name = "booking")
 public class Booking extends BaseEntity{
 
-
     @ManyToOne
     @JoinColumn(name = "room_code",referencedColumnName = "room_code")
     private Room room;
 
     @Column(name = "user_code")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userCode;
 
     @Column(name = "quantity")
@@ -41,5 +43,7 @@ public class Booking extends BaseEntity{
 
     @Column(name ="note")
     private String note;
+
+
 
 }

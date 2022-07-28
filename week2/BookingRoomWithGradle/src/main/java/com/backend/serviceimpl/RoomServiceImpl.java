@@ -1,12 +1,13 @@
-package com.backend.service;
+package com.backend.serviceimpl;
 
 import com.backend.bean.Room;
 import com.backend.enumeration.RoomType;
 import com.backend.dto.RoomDTO;
-import com.backend.exception.DoubleUniqueRoomCode;
-import com.backend.exception.MinSizeMustBeLessThanMaxSize;
+import com.backend.exception.DoubleUniqueRoomCodeException;
+import com.backend.exception.MinSizeMustBeLessThanMaxSizeException;
 import com.backend.repository.RoomRepository;
-import com.backend.utils.MapperUtils;
+import com.backend.commons.MapperCommon;
+import com.backend.service.RoomService;
 import org.apache.commons.lang3.ObjectUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,13 +37,8 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public Room save(RoomDTO room) throws Exception {
-        if( ObjectUtils.isEmpty(room.getId()) && isExistedByRoomCode(room.getRoomCode())){
-            throw new DoubleUniqueRoomCode("roomCode has bean existed");
-        }
-        if (room.getMin() >= room.getMax()) {
-            throw new MinSizeMustBeLessThanMaxSize("min size must be less than max size");
-        }
+    public Room save(RoomDTO room)  {
+
         Room roomE = modelMapper.map(room, Room.class);
 
         return roomRepository.save(roomE);
@@ -81,8 +77,8 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public List<RoomDTO> searchAllBySizeBetweenAndRoomType(RoomType roomType, Integer quantity) {
-        Optional<List<Room>> rooms = roomRepository.searchAllBySizeBetweenAndRoomType(roomType, quantity);
+    public List<RoomDTO> searchAllBySizeBetweenAndRoomType(RoomType roomType, Integer quantity, Integer page, Integer pageSize) {
+        Optional<List<Room>> rooms = roomRepository.searchAllBySizeBetweenAndRoomType(roomType, quantity,PageRequest.of(page,pageSize) );
         if (rooms.isPresent()) {
             return rooms.get().stream()
                     .map(r -> modelMapper.map(r, RoomDTO.class))
@@ -92,13 +88,13 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public List<RoomDTO> searchAllByRoomType(RoomType roomType) {
-        return MapperUtils.mapperListToListDTO(roomRepository.searchAllByRoomType(roomType), RoomDTO.class, modelMapper);
+    public List<RoomDTO> searchAllByRoomType(RoomType roomType, Integer page, Integer pageSize) {
+        return MapperCommon.mapperListToListDTO(roomRepository.searchAllByRoomType(roomType,PageRequest.of(page,pageSize)), RoomDTO.class, modelMapper);
     }
 
     @Override
-    public List<RoomDTO> searchAllByBetweenMinAndMax(Integer quantity) {
-        return MapperUtils.mapperListToListDTO(roomRepository.searchAllByBetweenMinAndMax(quantity), RoomDTO.class, modelMapper);
+    public List<RoomDTO> searchAllByBetweenMinAndMax(Integer quantity, int page, int pageSize) {
+        return MapperCommon.mapperListToListDTO(roomRepository.searchAllByBetweenMinAndMax(quantity, PageRequest.of(page,pageSize)), RoomDTO.class, modelMapper);
     }
 
     /**
@@ -111,13 +107,17 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public Page<RoomDTO> findPaginated(int pageNo, int pageSize) {
         Pageable paging = PageRequest.of(pageNo, pageSize);
-        //Page<Room> pageResult = roomRepository.findAll(paging);
         return roomRepository.findAll(paging).map(room -> modelMapper.map(room, RoomDTO.class));
-
     }
 
     @Override
     public long totolRecordsRoom() {
         return roomRepository.count();
+    }
+
+    @Override
+    public Page<RoomDTO> searchAllAndPagination(RoomType roomType, Integer size, int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo,pageSize);
+        return roomRepository.searchAllAndPagination(roomType,size,pageable).map(room -> modelMapper.map(room,RoomDTO.class));
     }
 }

@@ -1,4 +1,4 @@
-package com.backend.utils;
+package com.backend.commons;
 
 import com.backend.enumeration.BookingState;
 import com.backend.enumeration.RoomState;
@@ -9,8 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ModelAddAttributeUtils {
-    private ModelAddAttributeUtils(){}
+public class ModelAddAttributeCommon {
+    private ModelAddAttributeCommon(){}
 
     public static void addRoomTypeAndRoomState(Model model){
         model.addAttribute("BASIC", RoomType.BASIC);
@@ -19,8 +19,14 @@ public class ModelAddAttributeUtils {
         model.addAttribute("booked",RoomState.booked);
     }
     public  static void addBookingState(Model model){
-       List<String> bookingStates = Arrays.stream(BookingState.values()).map(b -> b.name()).collect(Collectors.toList());
+       List<BookingState> bookingStates = Arrays.stream(BookingState.values()).collect(Collectors.toList());
        model.addAttribute("bookingStates",bookingStates);
+    }
+    public static void addEachBookingState(Model model){
+        model.addAttribute("canceled",BookingState.Canceled);
+        model.addAttribute("completed",BookingState.Completed);
+        model.addAttribute("processing",BookingState.Processing);
+        model.addAttribute("accepted",BookingState.Accepted);
     }
 
 }

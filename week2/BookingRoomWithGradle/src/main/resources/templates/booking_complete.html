@@ -26,7 +26,7 @@
         </ul>
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a th:href="@{/booking/complete}" class="nav-link" >Booking Complete</a>
+                <a th:href="@{/booking}" class="nav-link" >Booking Management</a>
             </li>
         </ul>
         <ul class="navbar-nav">
@@ -35,42 +35,19 @@
             </li>
         </ul>
     </div>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <form  method="GET" class="d-flex">
 
-
+            <input name="text" value=""
+                   class="form-control me-2" type="search" placeholder="Search"
+                   aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </div>
 </nav>
 <br>
-<form th:action="@{/booking}" th:method="get">
-    <th:block >
-        <label for="startTime">Start Time:</label>
-        <input id="startTime" type="datetime-local" name="startTime" th:value="${startTime}" >
-
-        <label for="endTime">End Time:</label>
-        <input id="endTime" type="datetime-local" name="endTime" th:value="${endTime}">
-    </th:block>
-
-
-    <label for="bookingState">Booking State:</label>
-    <select id="bookingState" name="bookingState">
-        <option  th:value="${null}">Select state</option>
-        <option  th:value="${processing}" th:text="${processing}"></option>
-        <option  th:value="${accepted}" th:text="${accepted}"></option>
-        <option  th:value="${completed}" th:text="${completed}"></option>
-        <option  th:value="${canceled}" th:text="${canceled}"></option>
-
-    </select>
-
-    <label for="description">Note:</label>
-    <input id="description" type="text" name="note">
-
-    <label for="pageSize">Size of page:</label>
-    <input name="pageSize" id="pageSize" min="1" oninput="validity.valid||(value='');" type="number">
-
-    <input type="submit"  class="btn btn-primary" Search >
-    <input type="reset" class="btn btn-danger">
-</form>
 <br>
 <div class="container">
-
     <p id="#text123" th:text="${message}" style="text-align: center ;color: orangered"></p>
     <div class="row">
         <h1>List Booking</h1>
@@ -92,7 +69,7 @@
             <th>Booking State</th>
             <th>Note</th>
             <th>User</th>
-            <th>Actions</th>
+
         </tr>
         </thead>
         <tbody>
@@ -105,33 +82,12 @@
             <td th:text ="${book.bookingState}"></td>
             <td th:text ="${book.note}"></td>
             <td th:text ="${book.userCode}"></td>
-            <td>
-                <th:block th:if="${book.bookingState} ==  ${processing} or ${book.bookingState} ==  ${accepted} ">
-
-                    <a th:href="@{/booking/edit/{id} (id=${book.id})}" class="btn btn-primary">Update</a>
-
-                    <a th:href="@{/booking/delete/{id} (id=${book.id})}" class="btn btn-danger" >Delete</a>
-
-                </th:block>
-
-
-            </td>
         </tbody>
     </table>
 </div>
 
 <!-- Pagination start-->
-<nav aria-label="Page navigation example" style="display: flex; justify-content: right">
 
-    <ul class="pagination">
-
-        <li class="page-item" th:each="page: ${pageNumbers}">
-            <a class="page-link" th:name="page" th:href="@{/booking(page=${page},pageSize=${pageSize},startTime=${startTime},endTime=${endTime},bookingState=${bookingState},note=${note})}" th:value="${page}" th:text="${page}"></a>
-        </li>
-
-    </ul>
-
-</nav>
 <!-- Pagination end-->
 </body>
 </html>

@@ -26,13 +26,11 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li>
-                        <a  th:href="@{/booking}" type="button" class="nav-link ">Booking</a>
+                        <a th:href="@{/booking}" type="button" class="nav-link ">Booking</a>
                     </li>
                     <li class="nav-item ">
                         <!-- Button trigger modal -->
-                        <a type="button" class="nav-link " data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                            Search
-                        </a>
+
                     </li>
 
                     <li class="nav-item dropdown">
@@ -45,11 +43,10 @@
 
                         </ul>
                     </li>
-
                 </ul>
                 <p style="color: antiquewhite;font-family: 'Arial Rounded MT Bold';font-size: x-large">Hello : </p>
-                <p sec:authentication="name" style="color: antiquewhite;font-family: 'Arial Rounded MT Bold';font-size: x-large">
-
+                <p sec:authentication="name"
+                   style="color: antiquewhite;font-family: 'Arial Rounded MT Bold';font-size: x-large">
                 </p>
 
             </div>
@@ -60,15 +57,26 @@
 <div>
 
 </div>
+<form th:action="@{/room/showRooms}" th:method="get" >
 
+        <label for="roomType">Room type :</label>
+        <select id="roomType" name="roomType">
+                <option th:value="${null}"></option>
+                <option th:value="${BASIC}" th:text="${BASIC}"></option>
+                <option th:value="${VIP}" th:text="${VIP}"></option>
+        </select>
+
+        <label for="size" >Number of people :</label>
+        <input min=1 oninput="validity.valid||(value='');"  type="number" id="size" name="size"/>
+
+        <label for="pageSize">Size of page:</label>
+        <input name="pageSize" id="pageSize" min="1" oninput="validity.valid||(value='');" type="number">
+
+        <button type="submit" class="btn btn-primary">Search</button>
+</form>
 
 <!-- Room -->
 <div class="container">
-    <th:block>
-        <p th:if="${totalRecords} gt 0" th:text="'Total Room of this page : '+${totalRecords}" style="color: orangered;font-size: larger"></p>
-        <p th:if="${totalRecords} eq 0" th:text="'Total Room of this page : '+0" style="color: orangered;font-size: larger"></p>
-    </th:block>
-
     <p id="#text123" th:text="${message}" style="text-align: center ;color: orangered"></p>
     <div class="row">
         <div class="col-4" th:each="room:${rooms}">
@@ -83,68 +91,42 @@
                     <a class="btn btn-primary" th:href="@{/room/edit/{id} (id=${room.roomCode})}"
                        role="button">Update</a>
                     <a class="btn btn-primary" th:href="@{/room/delete/{id} (id=${room.id})}" role="button">Delete</a>
-                    <th:block th:switch="${room.state}">
-                        <a th:case="${available}" th:href="@{/booking/{roomCode}(roomCode =${room.roomCode})}" class="btn btn-success">Book now</a>
-                    </th:block>
+                    <a  th:href="@{/booking/{roomCode}(roomCode =${room.roomCode})}"
+                       class="btn btn-success">Book now</a>
                 </div>
             </div>
         </div>
 
     </div>
+    <th:block>
+        <p th:if="${totalRecords} != null and ${totalRecords} > 0" th:text="'Total Room of this page : '+${totalRecords}"
+           style="color: orangered;font-size: larger"></p>
+        <p th:if="${totalRecords} == 0" th:text="'Total Room of this page : '+0"
+           style="color: orangered;font-size: larger"></p>
+    </th:block>
 </div>
 
-<nav aria-label="Page navigation example">
+<nav aria-label="Page navigation example" style="display: flex;justify-content: right">
 
-    <ul class="pagination" >
-        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+    <ul class="pagination">
+<!--        <li class="page-item">-->
+<!--            <th:block th:if="${page} gt 1">-->
+<!--                <a class="page-link" th:href="@{/room/showRooms/(page=${page-1},pageSize=${pageSize},roomType=${roomType},size=${size})} ">Previous</a>-->
+<!--            </th:block>-->
+<!--        </li>-->
         <li class="page-item" th:each="page: ${pageNumbers}">
-            <a  class="page-link" th:href="@{/room/showRooms/{page} (page = ${page})}"   th:text="${page}"></a>
+            <a class="page-link" th:name="page" th:href="@{/room/showRooms(page=${page},pageSize=${pageSize},roomType=${roomType},size=${size})}" th:value="${page}" th:text="${page}"></a>
         </li>
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+<!--        <li class="page-item">-->
+<!--            <th:block th:if="${page} lt ${totalPages} ">-->
+<!--                <a class="page-link" th:href="@{/room/showRooms/(page=${page+1},pageSize=${pageSize},roomType=${roomType},size=${size})} ">Next</a>-->
+<!--            </th:block>-->
+<!--        </li>-->
     </ul>
 
 </nav>
 <!-- Modal -->
-<div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header" style="text-align: center">
-                <h5 class="modal-title" id="staticBackdropLabel" style="color: cadetblue">
-                    Searching</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form th:action="@{/room/showRooms/1}" th:method="get">
-                    <div class="form-group row mt-4 mb-4">
-                        <label  class="col-sm-2 col-form-label">Room type :</label>
-                        <div class="col-sm-4">
-<!--                            <input class="form-control" type="text" id="type" name="roomType"/>-->
-                            <select name="roomType">
-                                <option th:value="${null}">select type room</option>
-                                <option th:value="${BASIC}" th:text="${BASIC}"></option>
-                                <option th:value="${VIP}" th:text="${VIP}" ></option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row mt-4 mb-4">
-                        <label for="size" class="col-sm-2 col-form-label">Size :</label>
-                        <div class="col-sm-4">
-                            <input class="form-control" type="number" id="size" name="size"/>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
-                        </button>
-                        <button type="submit" class="btn btn-primary" >Search</button>
-                    </div>
-                </form>
-            </div>
-
-        </div>
-    </div>
-</div>
+<
 <footer class="bg-light  py-3 text-center">
     <div class="container-fluid">
         <span class="text-muted">CRUD Booking Room &#129392;

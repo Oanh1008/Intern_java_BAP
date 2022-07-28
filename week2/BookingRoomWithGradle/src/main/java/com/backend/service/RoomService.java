@@ -11,7 +11,7 @@ public interface RoomService {
 
     List<RoomDTO> getAllRooms();
 
-    Room save(RoomDTO room) throws Exception;
+    Room save(RoomDTO room);
 
     void deleteById(Integer id);
 
@@ -26,12 +26,14 @@ public interface RoomService {
 
     boolean isExistedByRoomCode(String roomCode);
 
-    List<RoomDTO> searchAllBySizeBetweenAndRoomType(RoomType roomType, Integer quantity);
+    List<RoomDTO> searchAllBySizeBetweenAndRoomType(RoomType roomType, Integer quantity, Integer page, Integer pageSize);
 
-    List<RoomDTO> searchAllByRoomType(RoomType roomType);
+    List<RoomDTO> searchAllByRoomType(RoomType roomType, Integer page, Integer pageSize);
 
-    List<RoomDTO> searchAllByBetweenMinAndMax(Integer quantity);
+    List<RoomDTO> searchAllByBetweenMinAndMax(Integer quantity,int page,int pageSize);
 
    Page<RoomDTO> findPaginated(int pageNo, int pageSize);
    long totolRecordsRoom();
+
+    Page<RoomDTO> searchAllAndPagination(RoomType roomType, Integer size, int pageNo, int pageSize);
 }

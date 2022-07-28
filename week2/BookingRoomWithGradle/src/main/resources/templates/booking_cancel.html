@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html  xmlns:th="https://www.thymeleaf.org/"/>
+<head>
+    <meta charset="UTF-8">
+    <title>Student Management System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <!-- Brand -->
+    <a class="navbar-brand" href="#">Booking Cancel Management System</a>
+
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a th:href="@{/room/showRooms}" class="nav-link" >Room Management</a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a th:href="@{/booking}" class="nav-link" >Booking Management</a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a th:href="@{/booking/complete}" class="nav-link" >Booking Complete</a>
+            </li>
+        </ul>
+    </div>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <form  method="GET" class="d-flex">
+
+            <input name="text" value=""
+                   class="form-control me-2" type="search" placeholder="Search"
+                   aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <h1>List Booking</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3">
+
+        </div>
+    </div>
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Room Code</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Quantity</th>
+            <th>Booking State</th>
+            <th>Note</th>
+            <th>User</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each = "book: ${bookings}">
+            <td th:text ="${book.id}"></td>
+            <td th:text ="${book.room.roomCode}"></td>
+            <td th:text ="${book.startTime}"></td>
+            <td th:text ="${book.endTime}"></td>
+            <td th:text ="${book.quantity}"></td>
+            <td th:text ="${book.bookingState}"></td>
+            <td th:text ="${book.note}"></td>
+            <td th:text ="${book.userCode}"></td>
+        </tbody>
+    </table>
+</div>
+
+<!-- Pagination start-->
+
+<!-- Pagination end-->
+</body>
+</html>

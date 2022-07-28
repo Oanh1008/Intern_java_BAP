@@ -1,14 +1,13 @@
-package com.backend.utils;
+package com.backend.commons;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MapperUtils {
+public class MapperCommon {
 
-    private MapperUtils(){}
+    private MapperCommon(){}
 
     public static <E,T> List<T> mapperListToListDTO(List<E> eList, Class<T> targerClass, ModelMapper modelMapper){
         return eList.stream()

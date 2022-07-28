@@ -11,11 +11,12 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
 
-
-
+  messages:
+    basename: message
 logging:
   level:
     sql: debug
+
 
 
 
