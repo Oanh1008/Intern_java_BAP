@@ -78,12 +78,24 @@
                 </select>
             </div>
         </div>
-
+        <div class="form-group row mt-4 mb-4">
+            <label for="userCode" class="col-sm-2 col-form-label">User Code:</label>
+            <div class="col-sm-4">
+                <input  th:field="${booking.userCode}"  id="userCode"  readonly/>
+            </div>
+        </div>
         <div class="form-group row mt-4 mb-4">
             <label for="roomID" class="col-sm-2 col-form-label">Room Code:</label>
             <div class="col-sm-4">
                 <input class="form-control" type="hidden" th:field="${booking.room}"  />
-                <input  th:field="${booking.room.roomCode}"  id="roomID"  readonly>
+
+                <select th:field="${booking.room.roomCode}">
+<!--                    <input  th:field="${booking.room.roomCode}"  id="roomID"  />-->
+                    <th:block th:each="roomCode:${roomCodes}">
+                        <option th:value="${roomCode}" th:text="${roomCode}"></option>
+                    </th:block>
+                </select>
+                <span class="has-error" th:if="${#fields.hasErrors('room.roomCode')}" th:class="error" th:errors="${booking.room.roomCode}"></span>
             </div>
         </div>
 

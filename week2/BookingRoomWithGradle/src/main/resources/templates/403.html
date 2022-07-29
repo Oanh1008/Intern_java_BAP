@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html  xmlns:th="https://www.thymeleaf.org/"/>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head>
     <meta charset="ISO-8859-1">
     <title>Access denied page</title>
-    <link href="${contextPath}/static/css/style.css"  rel="stylesheet" >
+    <link href=""  rel="stylesheet" >
 </head>
 <body>
 <h3> Access denied - You have not authorized to access this resource </h3>
@@ -22,7 +22,7 @@
         counter--;
         document.querySelector("#runner").textContent = counter;
         if (counter === 0) {
-            window.location.href ="http://localhost:8080/room/showRooms/1";
+            window.location.href ="http://localhost:8080/room/showRooms";
             clearInterval(interval);
         }
     }, 1000);

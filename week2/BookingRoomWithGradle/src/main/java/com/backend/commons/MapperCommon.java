@@ -9,9 +9,9 @@ public class MapperCommon {
 
     private MapperCommon(){}
 
-    public static <E,T> List<T> mapperListToListDTO(List<E> eList, Class<T> targerClass, ModelMapper modelMapper){
+    public static <E,T> List<T> mapperListToListDTO(List<E> eList, Class<T> targetClass, ModelMapper modelMapper){
         return eList.stream()
-                .map(e -> modelMapper.map(e , targerClass))
+                .map(e -> modelMapper.map(e , targetClass))
                 .collect(Collectors.toList());
     }
 }

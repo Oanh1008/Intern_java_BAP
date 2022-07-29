@@ -3,7 +3,6 @@ package com.backend.bean;
 import com.backend.enumeration.RoomState;
 import com.backend.enumeration.RoomType;
 import lombok.*;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,7 +11,6 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@ToString
 @Table(name = "room")
 public class Room extends BaseEntity{
     @Column(name = "room_code")
@@ -41,7 +39,7 @@ public class Room extends BaseEntity{
     @Column(name = "image")
     private String image;
 
-    @OneToMany(mappedBy = "room")
+    @OneToMany(mappedBy = "room",fetch = FetchType.LAZY)
     private List<Booking> bookings;
 
 }

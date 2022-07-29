@@ -4,16 +4,18 @@ public class Message {
 
     private Message(){}
 
-    public final static String ADD = "Added the room ";
+    public static final String ADD = "Added the room ";
 
-    public final static String UPDATE = "Updated the room ";
+    public static final String UPDATE = "Updated the room ";
 
-    public final static String DELETE = "Deleted the room ";
+    public static final String DELETE = "Deleted the room ";
 
-    public final static String SUCCESS= " successful";
+    public static final String SUCCESS= " successful";
 
-    public final static String NOT_SUCCESS= " not successful because ";
+    public static final String NOT_SUCCESS= " not successful because ";
 
-    public final static String ACTION ="Action ";
+    public static final String ACTION ="Action ";
+
+    public static final String NOT_EMPTY ="NotEmpty";
 
 }

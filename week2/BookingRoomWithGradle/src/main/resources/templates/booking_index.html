@@ -63,7 +63,10 @@
     <input id="description" type="text" name="note">
 
     <label for="pageSize">Size of page:</label>
-    <input name="pageSize" id="pageSize" min="1" oninput="validity.valid||(value='');" type="number">
+    <input style="width: 80px" name="pageSize" id="pageSize" min="1" oninput="validity.valid||(value='');" type="number">
+
+    <label for="roomCode">Room Code:</label>
+    <input type="text" name="roomCode" id="roomCode">
 
     <input type="submit"  class="btn btn-primary" Search >
     <input type="reset" class="btn btn-danger">
@@ -99,12 +102,12 @@
         <tr th:each = "book: ${bookings}">
             <td th:text ="${book.id}"></td>
             <td th:text ="${book.room.roomCode}"></td>
-            <td th:text ="${book.startTime}"></td>
-            <td th:text ="${book.endTime}"></td>
+            <td th:text ="${#temporals.format(book.startTime, 'yyyy-MM-dd HH:mm')}"></td>
+            <td th:text ="${#temporals.format(book.endTime, 'yyyy-MM-dd HH:mm')}"></td>
             <td th:text ="${book.quantity}"></td>
             <td th:text ="${book.bookingState}"></td>
             <td th:text ="${book.note}"></td>
-            <td th:text ="${book.userCode}"></td>
+            <td th:text="${book.userCode}"></td>
             <td>
                 <th:block th:if="${book.bookingState} ==  ${processing} or ${book.bookingState} ==  ${accepted} ">
 
@@ -126,7 +129,7 @@
     <ul class="pagination">
 
         <li class="page-item" th:each="page: ${pageNumbers}">
-            <a class="page-link" th:name="page" th:href="@{/booking(page=${page},pageSize=${pageSize},startTime=${startTime},endTime=${endTime},bookingState=${bookingState},note=${note})}" th:value="${page}" th:text="${page}"></a>
+            <a class="page-link" th:name="page" th:href="@{/booking(page=${page},pageSize=${pageSize},startTime=${startTime},endTime=${endTime},bookingState=${bookingState},note=${note},roomCode=${roomCode})}" th:value="${page}" th:text="${page}"></a>
         </li>
 
     </ul>

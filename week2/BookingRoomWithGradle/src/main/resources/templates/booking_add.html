@@ -71,10 +71,17 @@
 <!--        <div class="form-group row mt-4 mb-4">-->
 <!--            <label for="state" class="col-sm-2 col-form-label">State:</label>-->
 <!--            <div class="col-sm-4">-->
-                <th:block th:if="">
+<!--                <div sec:authorize="hasRole('ADMIN')" >-->
+<!--                    <select th:field="${booking.bookingState}">-->
+<!--                        <option th:value="${accepted}" th:text="${accepted}"></option>-->
+<!--                    </select>-->
+<!--                </div>-->
+<!--                <div sec:authorize="hasRole('USER')" >-->
+<!--                    <select th:field="${booking.bookingState}">-->
+<!--                        <option  th:value="${processing}" th:text="${processing}"></option>-->
+<!--                    </select>-->
+<!--                </div>-->
 
-                </th:block>
-                <input class="form-control" type="hidden" th:field="${booking.bookingState}" id="state" path="note"/>
 <!--                <select id="state"  th:field="${booking.bookingState}">-->
 <!--                   <th:block th:each="state: ${bookingStates}">-->
 <!--                       <option  th:value="${state}" th:text="${state}"></option>-->

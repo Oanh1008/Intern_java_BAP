@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html  xmlns:th="https://www.thymeleaf.org/"/>
+<head>
+  <meta charset="UTF-8">
+  <title>Student Management System</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+  <!-- Brand -->
+  <a class="navbar-brand" href="#">My Booking</a>
+
+  <!-- Toggler/collapsibe Button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Navbar links -->
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a th:href="@{/room/showRooms}" class="nav-link" >Room Management</a>
+      </li>
+    </ul>
+
+  </div>
+
+
+</nav>
+<br>
+<form th:action="@{/booking/showBooking/{userCode}(userCode=${userCode})}" th:method="get">
+
+
+  <label for="bookingState">Booking State:</label>
+  <select id="bookingState" name="bookingState">
+    <option  th:value="${null}">Select state</option>
+    <option  th:value="${processing}" th:text="${processing}"></option>
+    <option  th:value="${accepted}" th:text="${accepted}"></option>
+    <option  th:value="${completed}" th:text="${completed}"></option>
+    <option  th:value="${canceled}" th:text="${canceled}"></option>
+
+  </select>
+
+  <label for="pageSize">Size of page:</label>
+  <input style="width: 80px" name="pageSize" id="pageSize" min="1" oninput="validity.valid||(value='');" type="number">
+
+  <input type="submit"  class="btn btn-primary" Search >
+  <input type="reset" class="btn btn-danger">
+</form>
+<br>
+<div class="container">
+
+  <p id="#text123" th:text="${message}" style="text-align: center ;color: orangered"></p>
+  <div class="row">
+    <h1>List Booking</h1>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-3">
+
+    </div>
+  </div>
+  <table class="table table-striped table-bordered">
+    <thead class="table-dark">
+    <tr>
+      <th>ID</th>
+      <th>Room Code</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th>Quantity</th>
+      <th>Booking State</th>
+      <th>Note</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each = "book: ${bookings}">
+      <td th:text ="${book.id}"></td>
+      <td th:text ="${book.room.roomCode}"></td>
+      <td th:text ="${#temporals.format(book.startTime, 'yyyy-MM-dd HH:mm')}"></td>
+      <td th:text ="${#temporals.format(book.endTime, 'yyyy-MM-dd HH:mm')}"></td>
+      <td th:text ="${book.quantity}"></td>
+      <td th:text ="${book.bookingState}"></td>
+      <td th:text ="${book.note}"></td>
+      <td>
+        <th:block th:if="${book.bookingState} ==  ${processing} ">
+          <a th:href="@{/booking/delete/{id} (id=${book.id})}" class="btn btn-danger" >Cancel</a>
+        </th:block>
+
+
+      </td>
+    </tbody>
+  </table>
+</div>
+
+<!-- Pagination start-->
+<nav aria-label="Page navigation example" style="display: flex; justify-content: right">
+
+  <ul class="pagination">
+
+    <li class="page-item" th:each="page: ${pageNumbers}">
+      <a class="page-link" th:name="page" th:href="@{/booking/showBooking/{userCode}(userCode=${userCode},page=${page},pageSize=${pageSize},bookingState=${bookingState})}" th:value="${page}" th:text="${page}"></a>
+    </li>
+
+  </ul>
+
+</nav>
+<!-- Pagination end-->
+</body>
+</html>
