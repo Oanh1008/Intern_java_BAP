@@ -30,8 +30,6 @@ public interface BookingRepository extends JpaRepository<Booking,Integer> {
     @Query("select (count (b) = 0) from Booking b where b.room.roomCode = ?1 and b.bookingState = 'Accepted'")
     boolean isExistedBookingByRoomCode(String roomCode);
 
-
-
     @Query("select b from Booking b where ((:startTime is null and :endTime is null)"
                                             +" or ((b.startTime >= :startTime and b.endTime > :startTime) "
                                             +"and (b.endTime <= :endTime and b.startTime < :endTime)))"

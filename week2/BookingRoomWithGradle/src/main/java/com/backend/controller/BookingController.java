@@ -147,7 +147,8 @@ public class BookingController {
     }
 
     @PostMapping("/booking/update")
-    public String updateBooking(@ModelAttribute("booking") BookingDTO booking, RedirectAttributes re, BindingResult bindingResult, Model model) {
+    public String updateBooking(@ModelAttribute("booking") BookingDTO booking, RedirectAttributes re,
+                                BindingResult bindingResult, Model model) {
         bookingValidator.validate(booking, bindingResult);
         if (bindingResult.hasErrors()) {
             ModelAddAttributeCommon.addBookingState(model);
@@ -157,8 +158,8 @@ public class BookingController {
 
         try {
             bookingService.update(booking);
-        }catch (DuplicateBookingException duplicateBookingException){
-            message = duplicateBookingException.getMessage();
+        }catch (DuplicateBookingException d){
+            message = d.getMessage();
         }
          re.addFlashAttribute("message", message);
         return "redirect:/booking";

@@ -25,5 +25,4 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
 
     @Query("select r.roomCode from Room r")
     Optional<List<String>> getAllRoomCode();
-
 }
