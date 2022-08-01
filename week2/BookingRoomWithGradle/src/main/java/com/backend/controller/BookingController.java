@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,7 +39,7 @@ public class BookingController {
         this.roomService = roomService;
         this.bookingValidator = bookingValidator;
     }
-
+// form search
     @GetMapping("/booking")
     public String bookingPage(
             @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
@@ -126,13 +127,13 @@ public class BookingController {
     }
 
     @PostMapping("/booking/save")
-    public String saveBooking(@ModelAttribute("booking") BookingDTO booking, RedirectAttributes re,
+    public String saveBooking(@ModelAttribute("booking") BookingDTO booking, RedirectAttributes re,// var
                               BindingResult bindingResult) {
         bookingValidator.validate(booking, bindingResult);
         if (bindingResult.hasErrors()) {
             return "booking_add";
         }
-        String message = "";
+        String message = "";// utils
         try {
             bookingService.save(booking);
         } catch (DuplicateBookingException e) {
@@ -140,7 +141,7 @@ public class BookingController {
         }
         re.addFlashAttribute("message", message);
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        if("user".equals(name)){
+        if ("user".equals(name)) {
             return "redirect:/booking/showBooking/0";
         }
         return "redirect:/booking";
@@ -158,10 +159,10 @@ public class BookingController {
 
         try {
             bookingService.update(booking);
-        }catch (DuplicateBookingException d){
-            message = d.getMessage();
+        } catch (DuplicateBookingException d) {
+            message = d.getMessage();// todo log error
         }
-         re.addFlashAttribute("message", message);
+        re.addFlashAttribute("message", message);
         return "redirect:/booking";
     }
 
@@ -176,7 +177,7 @@ public class BookingController {
         BookingDTO booking = bookingService.findById(id);
         model.addAttribute("booking", booking);
         ModelAddAttributeCommon.addBookingState(model);
-        model.addAttribute("roomCodes",roomService.getAllRoomCode().get());
+        model.addAttribute("roomCodes", roomService.getAllRoomCode().get());
         return "booking_edit";
     }
 
@@ -186,7 +187,7 @@ public class BookingController {
                                           @RequestParam(name = "page", defaultValue = "1") Integer page,
                                           @RequestParam(name = "pageSize", defaultValue = "5") Integer pageSize,
                                           Model model) {
-        page-=1;
+        page -= 1;
         Page<BookingDTO> pageBookingDTO = bookingService.findBookingByUserCode(userCode, bookingState, page, pageSize);
         int totalPage = pageBookingDTO.getTotalPages();
         if (totalPage > 0) {

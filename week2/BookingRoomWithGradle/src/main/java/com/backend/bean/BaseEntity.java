@@ -3,6 +3,7 @@ package com.backend.bean;
 import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -24,7 +25,7 @@ public abstract class BaseEntity implements Serializable {
     @CreatedDate
     private LocalDateTime createTime;
 
-
+    @LastModifiedDate
     private LocalDateTime updateTime;
 
     @PrePersist

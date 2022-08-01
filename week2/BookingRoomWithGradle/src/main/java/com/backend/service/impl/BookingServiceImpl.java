@@ -51,11 +51,9 @@ public class BookingServiceImpl implements BookingService {
         Room room = roomRepository.findByRoomCode(bookingDTO.getRoom().getRoomCode());
         if (ObjectUtils.nullSafeEquals(RoomState.available, room.getState())
                 && ObjectUtils.nullSafeEquals(BookingState.Accepted, bookingE.getBookingState())) {
-
             room.setState(RoomState.booked);
             roomRepository.save(room);
         }
-
         return booking.save(bookingE);
     }
 
