@@ -16,7 +16,8 @@ spring:
 logging:
   level:
     sql: debug
-
+server:
+  port: 9090
 
 
 

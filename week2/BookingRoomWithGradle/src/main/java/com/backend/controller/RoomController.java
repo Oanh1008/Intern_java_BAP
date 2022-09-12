@@ -11,6 +11,7 @@ import com.backend.service.BookingService;
 import com.backend.service.RoomService;
 import com.backend.commons.ModelAddAttributeCommon;
 import com.backend.validation.RoomValidator;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import javax.validation.Valid;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -39,9 +42,9 @@ public class RoomController {
     private final RoomValidator roomValidator;
 
     @Autowired
-    public RoomController(RoomService roomService,RoomValidator roomValidator,BookingService bookingService) {
+    public RoomController(RoomService roomService, RoomValidator roomValidator, BookingService bookingService) {
         this.roomService = roomService;
-        this.roomValidator  = roomValidator;
+        this.roomValidator = roomValidator;
         this.bookingService = bookingService;
     }
 
@@ -51,14 +54,13 @@ public class RoomController {
                             @RequestParam(name = "roomType", defaultValue = "") RoomType roomType,
                             @RequestParam(name = "size", defaultValue = "0") Integer size,
                             @RequestParam(name = "pageSize", defaultValue = "6") Integer pageSize,
-                            @RequestParam(name = "page", defaultValue = "1") Integer page)
-    {
+                            @RequestParam(name = "page", defaultValue = "1") Integer page) {
         // Pagination start
-        if(pageSize < 0){
-            pageSize=6;
+        if (pageSize < 0) {
+            pageSize = 6;
         }
         page -= 1;
-        Page<RoomDTO> pageRoomDTO = roomService.searchAllAndPagination(roomType,size,page,pageSize);
+        Page<RoomDTO> pageRoomDTO = roomService.searchAllAndPagination(roomType, size, page, pageSize);
         int totalPages = pageRoomDTO.getTotalPages();
         List<RoomDTO> rooms = pageRoomDTO.toList();
         if (totalPages > 0) {
@@ -67,16 +69,16 @@ public class RoomController {
                     .collect(Collectors.toList());
             model.addAttribute("pageNumbers", pageNumbers);
         }
-        String name= SecurityContextHolder.getContext().getAuthentication().getName();
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
         int isAdmin = 1;
-        if("admin".equals(name)){
-            model.addAttribute("userCode",isAdmin);
-        }else {
-            isAdmin =0;
-            model.addAttribute("userCode",isAdmin);
+        if ("admin".equals(name)) {
+            model.addAttribute("userCode", isAdmin);
+        } else {
+            isAdmin = 0;
+            model.addAttribute("userCode", isAdmin);
         }
-        model.addAttribute("totalPages",totalPages);
-        model.addAttribute("page",page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("page", page);
         model.addAttribute("pageSize", pageSize);
         model.addAttribute("roomType", roomType);
         model.addAttribute("size", size);
@@ -96,9 +98,9 @@ public class RoomController {
     }
 
     @PostMapping(EndPoints.SAVE_ROOM)
-    public String save(@Valid @ModelAttribute("room") RoomDTO room, RedirectAttributes re, BindingResult bindingResult,Model model) {
-        roomValidator.validate(room,bindingResult);
-        if (bindingResult.hasErrors()){
+    public String save(@Valid @ModelAttribute("room") RoomDTO room, RedirectAttributes re, BindingResult bindingResult, Model model) {
+        roomValidator.validate(room, bindingResult);
+        if (bindingResult.hasErrors()) {
             ModelAddAttributeCommon.addRoomTypeAndRoomState(model);
             return Form.FORM_ADD;
         }
@@ -111,8 +113,8 @@ public class RoomController {
     }
 
     @PostMapping("room/edit")
-    public String edit(@Valid @ModelAttribute("room") RoomDTO room, RedirectAttributes re, BindingResult bindingResult,Model model) {
-        roomValidator.validateForEditRoom(room,bindingResult);
+    public String edit(@Valid @ModelAttribute("room") RoomDTO room, RedirectAttributes re, BindingResult bindingResult, Model model) {
+        roomValidator.validateForEditRoom(room, bindingResult);
         if (bindingResult.hasErrors()) {
             ModelAddAttributeCommon.addRoomTypeAndRoomState(model);
             return Form.FORM_EDIT;
@@ -149,7 +151,7 @@ public class RoomController {
                 .filter(bookingDTO -> bookingDTO.getBookingState().equals(BookingState.Accepted))
                 .collect(Collectors.toList());
         model.addAttribute("bookings", bookings);
-        model.addAttribute("roomCode",roomCode);
+        model.addAttribute("roomCode", roomCode);
         return "booking_of_room";
     }
 }

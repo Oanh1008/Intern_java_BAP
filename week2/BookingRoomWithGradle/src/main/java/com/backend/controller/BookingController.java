@@ -8,6 +8,7 @@ import com.backend.service.BookingService;
 import com.backend.service.RoomService;
 import com.backend.commons.ModelAddAttributeCommon;
 import com.backend.validation.BookingValidator;
+
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -39,7 +40,8 @@ public class BookingController {
         this.roomService = roomService;
         this.bookingValidator = bookingValidator;
     }
-// form search
+
+    // form search
     @GetMapping("/booking")
     public String bookingPage(
             @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")

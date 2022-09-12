@@ -109,11 +109,17 @@
             <td th:text ="${book.note}"></td>
             <td th:text="${book.userCode}"></td>
             <td>
-                <th:block th:if="${book.bookingState} ==  ${processing} or ${book.bookingState} ==  ${accepted} ">
+                <th:block th:if="${book.bookingState} ==  ${processing}  ">
 
                     <a th:href="@{/booking/edit/{id} (id=${book.id})}" class="btn btn-primary">Update</a>
 
                     <a th:href="@{/booking/delete/{id} (id=${book.id})}" class="btn btn-danger" >Delete</a>
+
+                </th:block>
+                <th:block th:if="${book.bookingState} ==  ${accepted} ">
+
+                    <a th:href="@{/booking/edit/{id} (id=${book.id})}" class="btn btn-primary">Update</a>
+
 
                 </th:block>
 
